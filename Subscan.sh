@@ -32,8 +32,40 @@ while read subdomain; do
 
 if [[ $http_response -eq 200 ]]; then
 
-    echo "$subdomain is live" | tee -a subdomain_status.txt
-elif []
+    echo "$subdomain is live (http $http_response)" | tee -a subdomain_status.txt
+
+elif [ $http_response -eq 301 ]; then
+
+    echo "$subdomain is Moved Permanently (http $http_response)" | tee -a subdomain_status.txt
+
+
+elif [ $http_response -eq 301 ]; then
+
+    echo "$subdomain is Found (http $http_response)" | tee -a subdomain_status.txt
+
+
+elif [ $http_response -eq 400 ]; then
+
+    echo "$subdomain is Bad request (http $http_response)" | tee -a subdomain_status.txt
+
+
+elif [ $http_response -eq 401 ]; then
+
+    echo "$subdomain is unauthorized (http $http_response)" | tee -a subdomain_status.txt
+
+elif [ $http_response -eq 403 ]; then
+
+    echo "$subdomain is Forbidden (http $http_response)" | tee -a subdomain_status.txt
+
+elif [ $http_response -eq 404 ]; then
+
+    echo "$subdomain is Not Found (http $http_response)" | tee -a subdomain_status.txt
+
+elif [ $http_response -eq 429 ]; then
+
+    echo "$subdomain is too many request (http $http_response)" | tee -a subdomain_status.txt
+
+else
 
     echo "$subdomain is not live (http $http_response)" | tee -a subdomain_status.txt
 
